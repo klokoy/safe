@@ -1,11 +1,19 @@
   <ion-view title="'Open'">
     <ion-content>
 
-    {{position | json}}
 
-    {{2+2}}
+    <br>
+    <br>
+    <br>
 
-    <button ng-click="login()" class="button button-calm">login</button>
+
+    <div class="round-button" ng-click="click()">
+        <div class="round-button-circle">
+            <div class="round-button">
+                <a>{{number || 0}}</a>
+            </div>
+        </div>
+    </div>
 
     </ion-content>
   </ion-view>

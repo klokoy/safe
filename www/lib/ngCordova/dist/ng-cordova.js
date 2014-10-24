@@ -942,8 +942,6 @@
             watchHeading: function(options) {
                 var q = $q.defer();
 
-                alert(Object.keys(navigator));
-
                 var watchId = navigator.compass.watchHeading(function(result) {
                     q.notify(result);
                 }, function(err) {

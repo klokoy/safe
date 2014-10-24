@@ -4,10 +4,10 @@ angular.module('starter.controllers', [])
     $scope.user = '';
     $scope.pass = '';
 
-    alert($cordovaDeviceOrientation);
+    $scope.model = {};
 
     var options = {
-        frequency: 1000
+        frequency: 500
     }; // Update every 1 second
 
     $timeout(function() {
@@ -20,14 +20,13 @@ angular.module('starter.controllers', [])
 
         watch.promise.then(
             function(result) {
-                console.log(result);
+                //                console.log(result);
             },
             function(err) {
                 alert(err);
             },
             function(position) {
-                alert(position);
-                $scope.position = position;
+                $scope.number = Math.floor(position.magneticHeading / 10);
                 // position.magneticHeading
             });
 
@@ -40,12 +39,10 @@ angular.module('starter.controllers', [])
             });
             */
 
-    }, 2000)
+    }, 500);
 
 
     function onLoginSuccess(profile, token) {
-
-        alert('success');
 
         store.set('profile', profile);
         store.set('token', token);
@@ -54,12 +51,11 @@ angular.module('starter.controllers', [])
         $scope.loading = false;
     }
 
-    function onLoginFailed() {
+    function onLoginFailed(error) {
 
-        console.log('shit');
+        alert('shit');
 
-        $scope.message.text = 'invalid credentials';
-        $scope.loading = false;
+        $scope.model.username = undefined;
     }
 
     $scope.reset = function() {
@@ -70,17 +66,25 @@ angular.module('starter.controllers', [])
         });
     }
 
-    $scope.login = function() {
+    $scope.click = function() {
 
-        alert("login");
+        if ($scope.model.username) {
 
-        $scope.loading = true;
-        auth.signin({
-            connection: 'Username-Password-Authentication',
-            username: 'max@safe.com',
-            password: 'max',
-            scope: 'openid name email'
-        }, onLoginSuccess, onLoginFailed);
+            var username = $scope.model.username + '@safe.com';
+            var pw = 'pw' + $scope.number;
+
+            $scope.loading = true;
+            auth.signin({
+                connection: 'Username-Password-Authentication',
+                username: username,
+                password: pw,
+                scope: 'openid name email'
+            }, onLoginSuccess, onLoginFailed);
+        } else {
+            $scope.model.username = $scope.number;
+        }
+
+
 
     };
 })
@@ -88,8 +92,6 @@ angular.module('starter.controllers', [])
 
 
 .controller('CashCtrl', function($scope, $http, $state) {
-
-    $scope.yohoo = 'yes';
 
     $scope.logout = function() {
         $state.go('logout');
