@@ -14,7 +14,7 @@
     box-shadow: 0 0 3px gray;
 }
 .round-button-circle:hover {
-	background:#C1C1C1;
+	background:#CDCDCD;
 }
 .round-button a {
     display:block;
@@ -24,7 +24,6 @@
     padding-bottom:50%;
 	line-height:1em;
 	margin-top:-0.5em;
-    transform: rotate(12deg);
 
 	text-align:center;
 	color:black;
